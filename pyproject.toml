@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "feature-logic"
+version = "0.1.0"
+description = "A package to define and access features with a simple API"
+authors = ["Roy van Santen <roy.santen.van@ah.nl>"]
+license = "n"
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = ">3.10"
+pyspark = "^3.3.0"
+
+
+[tool.poetry.group.dev.dependencies]
+jupyterlab = "^3.4.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
