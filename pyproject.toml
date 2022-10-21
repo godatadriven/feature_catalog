@@ -5,7 +5,6 @@ description = "A package to define and access features with a simple API"
 authors = []
 license = ""
 readme = "README.md"
-packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = ">3.10"
