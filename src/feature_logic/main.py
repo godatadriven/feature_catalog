@@ -14,5 +14,5 @@ def create_features(
     for feature_group in feature_groups:
         data = feature_group.apply(data, level=level)
         columns += feature_group.selections
-    print(columns)
+        print("Columns:", columns)
     return data.select(base_key, *columns)

@@ -4,6 +4,7 @@ from typing import Dict, List, Set
 from pyspark.sql import Column
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
+from pyspark.sql import functions as sf
 
 
 class FeatureGroup(metaclass=ABCMeta):
@@ -11,7 +12,7 @@ class FeatureGroup(metaclass=ABCMeta):
     source: str = ...
     keys: str = ...
     supported_levels: Set[str] = set()
-    available_features: Dict[str, Column] = {}
+    available_features: Set[str] = set()
     # depend_on: List["FeatureGroup"]
 
     def __init__(self, spark: SparkSession, features: List[str]):
@@ -19,24 +20,30 @@ class FeatureGroup(metaclass=ABCMeta):
         self.features = features
 
     def apply(self, data: SparkDataFrame, level: str):
-        print(self.keys, data.columns)
+        print("keys and columns: ", self.keys, data.columns)
         if any(key not in data.columns for key in self.keys):
             raise KeyError()
         print(self, "apply", data.columns)
         if level not in self.supported_levels:
             raise ValueError
-        source = self._transform(self._read(), level=level)
+        print("level", level)
+        input_data = self._read()
+        print("input_data", input_data)
+        source = self._transform(input_data, level=level)
         return data.join(source.alias(self.alias), on=self.keys, how="left")
 
     @abstractmethod
     def _read(self) -> SparkDataFrame:
         pass
 
-    @staticmethod
-    def _transform(data, level: str) -> SparkDataFrame:
-        # here the actual transformation (creation of features) happens
-        return data
+    @abstractmethod
+    def _transform(self, data, level: str) -> SparkDataFrame:
+        pass
 
     @property
-    def selections(self):
-        return [self.available_features[feature].select for feature in self.features]
+    def selections(self) -> List[Column]:
+        return [
+            sf.col(feature)
+            for feature in self.features
+            if feature in self.available_features
+        ]
