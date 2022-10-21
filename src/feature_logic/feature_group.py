@@ -1,6 +1,9 @@
-from pyspark.sql import Column, DataFrame as SparkDataFrame, SparkSession
 from abc import ABCMeta, abstractmethod
-from typing import List, Set, Dict
+from typing import Dict, List, Set
+
+from pyspark.sql import Column
+from pyspark.sql import DataFrame as SparkDataFrame
+from pyspark.sql import SparkSession
 
 
 class FeatureGroup(metaclass=ABCMeta):
@@ -31,8 +34,9 @@ class FeatureGroup(metaclass=ABCMeta):
 
     @staticmethod
     def _transform(data, level: str) -> SparkDataFrame:
+        # here the actual transformation (creation of features) happens
         return data
-    
+
     @property
     def selections(self):
         return [self.available_features[feature].select for feature in self.features]

@@ -1,11 +1,14 @@
-from pyspark.sql import Column, DataFrame as SparkDataFrame, SparkSession
-
 from typing import List
+
+from pyspark.sql import Column
+from pyspark.sql import DataFrame as SparkDataFrame
+
 from feature_logic.feature_group import FeatureGroup
 
 
-def create_features(spark: SparkSession, level: str, feature_groups: List[FeatureGroup]):
-    data: SparkDataFrame = spark.createDataFrame([dict(party_id="a"), dict(party_id="b"), dict(party_id="c")]) 
+def create_features(
+    data: SparkDataFrame, level: str, feature_groups: List[FeatureGroup]
+):
     columns: List[Column] = []
     base_key = f"{level}_id"
     for feature_group in feature_groups:

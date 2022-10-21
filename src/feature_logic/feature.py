@@ -1,6 +1,8 @@
-from pyspark.sql import Column, functions as sf
-from typing import Optional
 from dataclasses import dataclass
+from typing import Optional
+
+from pyspark.sql import Column
+from pyspark.sql import functions as sf
 
 
 @dataclass
@@ -8,7 +10,7 @@ class Feature:
     name: str
     query: Column
     default: Optional[Column] = None
-        
+
     @property
     def select(self) -> Column:
         query = self.query
