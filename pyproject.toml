@@ -2,8 +2,8 @@
 name = "feature-logic"
 version = "0.1.0"
 description = "A package to define and access features with a simple API"
-authors = ["Roy van Santen <roy.santen.van@ah.nl>"]
-license = "n"
+authors = []
+license = ""
 readme = "README.md"
 packages = [{include = "src"}]
 
