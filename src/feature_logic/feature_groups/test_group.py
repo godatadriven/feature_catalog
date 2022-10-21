@@ -8,12 +8,12 @@ class LocationFeatures(FeatureGroup):
 
     alias = "location"
     source = "data/location_data.parquet"
-    keys = ["party_id"]
-    supported_levels = {"party"}
+    keys = ["id"]
+    supported_keys = {"id"}
     available_features = {"postcode", "is_foreign"}
 
     def _read(self) -> SparkDataFrame:
         return self.spark.read.parquet(self.source)
 
-    def _transform(self, data, level: str) -> SparkDataFrame:
+    def _transform(self, data, key: str) -> SparkDataFrame:
         return data.withColumn("is_foreign", sf.col("postcode") == sf.lit(""))

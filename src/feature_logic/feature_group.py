@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from typing import Dict, List, Set
+from typing import List, Set
 
 from pyspark.sql import Column
 from pyspark.sql import DataFrame as SparkDataFrame
@@ -11,37 +11,37 @@ class FeatureGroup(metaclass=ABCMeta):
     alias: str = ...
     source: str = ...
     keys: str = ...
-    supported_levels: Set[str] = set()
-    available_features: Set[str] = set()
+    supported_keys: Set[str] = ...
+    available_features: Set[str] = ...
     # depend_on: List["FeatureGroup"]
 
     def __init__(self, spark: SparkSession, features: List[str]):
         self.spark = spark
         self.features = features
 
-    def apply(self, data: SparkDataFrame, level: str):
-        print("keys and columns: ", self.keys, data.columns)
-        if any(key not in data.columns for key in self.keys):
-            raise KeyError()
-        print(self, "apply", data.columns)
-        if level not in self.supported_levels:
-            raise ValueError
-        print("level", level)
-        input_data = self._read()
-        print("input_data", input_data)
-        source = self._transform(input_data, level=level)
-        return data.join(source.alias(self.alias), on=self.keys, how="left")
+    def apply(self, features: SparkDataFrame, key: str):
+        if any(key not in features.columns for key in self.keys):
+            raise KeyError()  # TODO: add logging and custom error
+
+        if key not in self.supported_keys:
+            raise ValueError()  # TODO: add logging and custom error
+
+        feature_group = self._transform(self._read(), key=key)
+        return features.join(feature_group.alias(self.alias), on=self.keys, how="left")
 
     @abstractmethod
     def _read(self) -> SparkDataFrame:
+        """Read/load necessary source data"""
         pass
 
     @abstractmethod
-    def _transform(self, data, level: str) -> SparkDataFrame:
+    def _transform(self, data, key: str) -> SparkDataFrame:
+        """Create features"""
         pass
 
     @property
     def selections(self) -> List[Column]:
+        """Select the defined features"""
         return [
             sf.col(feature)
             for feature in self.features
