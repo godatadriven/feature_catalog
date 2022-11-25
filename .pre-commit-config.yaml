@@ -38,6 +38,8 @@ repos:
     rev: 5.10.1
     hooks:
       - id: isort
+        args:
+          - "-l=120"
         additional_dependencies: [toml]
         name: Sort imports using isort
   - repo: https://github.com/hukkinj1/mdformat

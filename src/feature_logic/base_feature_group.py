@@ -6,7 +6,7 @@ from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as sf
 
-from feature_logic.utils import MissingColumnError, get_logger
+from feature_logic.utils import MissingColumnError, UnsupportedAggregationLevel, get_logger
 
 LOGGER = get_logger()
 
@@ -42,7 +42,10 @@ class BaseFeatureGroup(metaclass=ABCMeta):
         self.aggregation_level = aggregation_level
 
         self.alias = self.__class__.__name__
-        assert self.aggregation_level in self.supported_levels, "Error: aggregation level not supported"
+        if self.aggregation_level not in self.supported_levels:
+            error_message = "Error: aggregation level not supported"
+            LOGGER.error(error_message)
+            raise UnsupportedAggregationLevel(error_message)
 
     def extend(self, features: SparkDataFrame) -> SparkDataFrame:
         """Extend already computed features by adding features from this group
