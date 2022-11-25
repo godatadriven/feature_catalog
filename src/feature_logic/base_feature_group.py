@@ -61,19 +61,22 @@ class BaseFeatureGroup(metaclass=ABCMeta):
             LOGGER.error(error_message)
             raise MissingColumnError(error_message)
 
-        feature_group = self._compute_feature_group(self._load_source_data(), aggregation_level=self.aggregation_level)
+        feature_group = self._compute_feature_group(
+            intermediate_features=features, aggregation_level=self.aggregation_level
+        )
         return features.join(
             feature_group.alias(self.alias + "-" + self.aggregation_level), on=self.aggregation_level, how="left"
         )
 
     @abstractmethod
-    def _load_source_data(self) -> SparkDataFrame:
-        """Read/load necessary source data"""
-        pass
+    def _compute_feature_group(self, intermediate_features: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
+        """Compute the features from this feature group
 
-    @abstractmethod
-    def _compute_feature_group(self, source_data: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
-        """Compute the features from this feature group"""
+        Args:
+            intermediate_features: already computed features from which you can re-use columns
+            aggregation_level: column on which the aggregation is done for this feature group
+                and also column on which the result is joined to the intermediate features
+        """
         pass
 
     @property

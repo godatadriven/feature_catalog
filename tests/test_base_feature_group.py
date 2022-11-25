@@ -13,11 +13,12 @@ class GroupA(BaseFeatureGroup):
     supported_levels = {"id"}
     available_features = {"feature_3", "feature_4"}
 
-    def _load_source_data(self) -> SparkDataFrame:
-        return self.spark.createDataFrame([(1,), (2,), (3,), (4,)], schema="id integer")
-
-    def _compute_feature_group(self, source_data: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
-        return source_data.withColumn("feature_3", sf.lit("f3")).withColumn("feature_4", sf.lit("f4"))
+    def _compute_feature_group(self, intermediate_features: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
+        return (
+            self.spark.createDataFrame([(1,), (2,), (3,), (4,)], schema="id integer")
+            .withColumn("feature_3", sf.lit("f3"))
+            .withColumn("feature_4", sf.lit("f4"))
+        )
 
 
 @pytest.fixture
