@@ -6,6 +6,10 @@ from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as sf
 
+from feature_logic.utils import MissingColumnError, get_logger
+
+LOGGER = get_logger()
+
 
 class BaseFeatureGroup(metaclass=ABCMeta):
     """Class to extend when creating a new feature group.
@@ -26,6 +30,7 @@ class BaseFeatureGroup(metaclass=ABCMeta):
         """Set of features that can be computed in this feature group"""
         pass
 
+    # TODO: add depends_on functionality
     # @abstractproperty
     # def depend_on(self) -> List["BaseFeatureGroup"]:
     #     """"""
@@ -39,8 +44,8 @@ class BaseFeatureGroup(metaclass=ABCMeta):
         self.alias = self.__class__.__name__
         assert self.aggregation_level in self.supported_levels, "Error: aggregation level not supported"
 
-    def add(self, features: SparkDataFrame) -> SparkDataFrame:
-        """Add the features from this group to the already computed features
+    def extend(self, features: SparkDataFrame) -> SparkDataFrame:
+        """Extend already computed features by adding features from this group
 
         Args:
             features: already computed features
@@ -48,9 +53,10 @@ class BaseFeatureGroup(metaclass=ABCMeta):
         Returns:
             Extended features datafreame
         """
-        assert (
-            self.aggregation_level in features.columns
-        ), "Error: aggregation column not available in intermediate feature dataframe"
+        if self.aggregation_level not in features.columns:
+            error_message = "Error: aggregation column not available in intermediate feature dataframe"
+            LOGGER.error(error_message)
+            raise MissingColumnError(error_message)
 
         feature_group = self._compute_feature_group(self._load_source_data(), aggregation_level=self.aggregation_level)
         return features.join(

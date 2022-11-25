@@ -1,38 +1,42 @@
 import pytest
-
-from pyspark.sql import SparkSession, DataFrame as SparkDataFrame, functions as sf
+from pyspark.sql import DataFrame as SparkDataFrame
+from pyspark.sql import SparkSession
+from pyspark.sql import functions as sf
 from pyspark_test import assert_pyspark_df_equal
 
 from feature_logic.feature_groups.zone import Zone
 
 
 @pytest.fixture
-def spark():
-    return SparkSession.builder.getOrCreate()
+def expected_zone_features(spark: SparkSession):
+    return spark.createDataFrame(
+        [
+            dict(avatarId="a", total_count=2, darkshore_count=1, darkshore_likelyhood=0.5),
+            dict(avatarId="b", total_count=1, darkshore_count=1, darkshore_likelyhood=1.0),
+            dict(avatarId="c", total_count=1, darkshore_count=0, darkshore_likelyhood=0.0),
+        ]
+    )
+
 
 @pytest.fixture
-def expected_zone_features(spark):
-    return spark.createDataFrame([
-        dict(avatarId="a", total_count=2, darkshore_count=1, darkshore_likelyhood=.5), 
-        dict(avatarId="b", total_count=1, darkshore_count=1, darkshore_likelyhood=1.), 
-        dict(avatarId="c", total_count=1, darkshore_count=0, darkshore_likelyhood=0.)
-    ])
+def zone_source_data(spark: SparkSession):
+    return spark.createDataFrame(
+        [
+            dict(avatarId="a", zone=" Darkshore"),
+            dict(avatarId="a", zone=" Lighthaven"),
+            dict(avatarId="b", zone=" Darkshore"),
+            dict(avatarId="c", zone=" Lighthaven"),
+        ]
+    )
 
-@pytest.fixture
-def zone_source_data(spark):
-    return spark.createDataFrame([
-    dict(avatarId="a", zone=" Darkshore"),
-    dict(avatarId="a", zone=" Lighthaven"),
-    dict(avatarId="b", zone=" Darkshore"),
-    dict(avatarId="c", zone=" Lighthaven"),
-])
 
 @pytest.mark.parametrize("aggregation_level", ["avatarId", "guild"])
 def test_compute_feature_group(
-    zone_source_data: SparkDataFrame, 
-    aggregation_level: str, 
-    expected_zone_features: SparkDataFrame
-    ):
+    spark: SparkSession,
+    zone_source_data: SparkDataFrame,
+    aggregation_level: str,
+    expected_zone_features: SparkDataFrame,
+):
     if aggregation_level == "guild":
         zone_source_data = zone_source_data.withColumn("guild", sf.col("avatarId"))
         expected_zone_features = expected_zone_features.withColumnRenamed("avatarId", "guild")
