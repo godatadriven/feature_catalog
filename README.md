@@ -1,6 +1,10 @@
-# feature_logic
+# Feature Logic
 
-A package to define and access features with a simple API
+A package to define and access features with a simple API.
+
+## Install
+
+Install using `poetry install`
 
 ## Download data
 
