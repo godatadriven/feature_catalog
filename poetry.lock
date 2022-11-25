@@ -1053,6 +1053,17 @@ pandas_on_spark = ["numpy (>=1.15)", "pandas (>=1.0.5)", "pyarrow (>=1.0.0)"]
 sql = ["pandas (>=1.0.5)", "pyarrow (>=1.0.0)"]
 
 [[package]]
+name = "pyspark-test"
+version = "0.2.0"
+description = "Check that left and right spark DataFrame are equal."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+pyspark = ">=2.1.2"
+
+[[package]]
 name = "pytest"
 version = "7.2.0"
 description = "pytest: simple powerful testing with Python"
@@ -1341,7 +1352,7 @@ test = ["websockets"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.10"
-content-hash = "f67f7f5e872077cbd543128b3788565c5936bf8f0272211eabd2a5cef83ae9a2"
+content-hash = "790b79a2746c1051f1ead52fa03f6a15fcbc00728e5bed9954132bbd6ccf92fe"
 
 [metadata.files]
 anyio = [
@@ -1903,6 +1914,10 @@ pyrsistent = [
 ]
 pyspark = [
     {file = "pyspark-3.3.1.tar.gz", hash = "sha256:e99fa7de92be406884bfd831c32b9306a3a99de44cfc39a2eefb6ed07445d5fa"},
+]
+pyspark-test = [
+    {file = "pyspark_test-0.2.0-py3-none-any.whl", hash = "sha256:dd4fb03c4f438f718a870a9268a459f2f8924829c767302f5515202707c97709"},
+    {file = "pyspark_test-0.2.0.tar.gz", hash = "sha256:0d9d8d3a352a9b1c30761b0553a5771cb9dbb9a278955b3e7b0aed0ae13892d8"},
 ]
 pytest = [
     {file = "pytest-7.2.0-py3-none-any.whl", hash = "sha256:892f933d339f068883b6fd5a459f03d85bfcb355e4981e146d2c7616c21fef71"},

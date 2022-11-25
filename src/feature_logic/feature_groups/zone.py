@@ -14,12 +14,8 @@ class Zone(BaseFeatureGroup):
 
     def _compute_feature_group(self, source_data: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
         return (
-            source_data
-            .withColumn("darkshore_flag", sf.when(sf.col("zone") == " Darkshore", 1).otherwise(0))
+            source_data.withColumn("darkshore_flag", sf.when(sf.col("zone") == " Darkshore", 1).otherwise(0))
             .groupby(aggregation_level)
-            .agg(
-                sf.count("*").alias("total_count"),
-                sf.sum("darkshore_flag").alias("darkshore_count")
-            )
+            .agg(sf.count("*").alias("total_count"), sf.sum("darkshore_flag").alias("darkshore_count"))
             .withColumn("darkshore_likelyhood", sf.col("darkshore_count") / sf.col("total_count"))
         )
