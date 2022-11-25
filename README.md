@@ -3,6 +3,8 @@
 This is an example/template package to define and access features with a simple API.
 This repo can be used as template or inspiration to create your own feature logic package.
 
+This package assumes that the size of your data justifies the use of Spark.
+
 
 ## Why create a feature logic package?
 
