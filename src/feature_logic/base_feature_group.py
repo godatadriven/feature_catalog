@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
-from typing import List, Set
 
 from pyspark.sql import Column
 from pyspark.sql import DataFrame as SparkDataFrame
@@ -21,25 +20,29 @@ class BaseFeatureGroup(metaclass=ABCMeta):
     """
 
     @abstractproperty
-    def supported_levels(self) -> Set[str]:
+    def supported_levels(self) -> set[str]:
         """Set of aggregation levels that is supported by this feature group"""
         pass
 
     @abstractproperty
-    def available_features(self) -> Set[str]:
+    def available_features(self) -> set[str]:
         """Set of features that can be computed in this feature group"""
         pass
 
-    # TODO: add depends_on functionality
-    # @abstractproperty
-    # def depend_on(self) -> List["BaseFeatureGroup"]:
-    #     """"""
-    #     pass
+    @property
+    def depends_on(self) -> list["BaseFeatureGroup"]:
+        """To indicate on which other feature groups this group depends
 
-    def __init__(self, spark: SparkSession, features_of_interest: List[str], aggregation_level: str):
+        Depending on another feature group means that you use columns/features
+        from this group to create new columns/features.
+        """
+        return self._depends_on
+
+    def __init__(self, spark: SparkSession, features_of_interest: list[str], aggregation_level: str):
         self.spark = spark
         self.features_of_interest = features_of_interest
         self.aggregation_level = aggregation_level
+        self._depends_on: list["BaseFeatureGroup"] = []
 
         self.alias = self.__class__.__name__
         if self.aggregation_level not in self.supported_levels:
@@ -80,7 +83,7 @@ class BaseFeatureGroup(metaclass=ABCMeta):
         pass
 
     @property
-    def columns_of_interest(self) -> List[Column]:
+    def columns_of_interest(self) -> list[Column]:
         """List the columns of interest from this group that need to be selected at the end of the query"""
         return [
             sf.col(self.alias + "-" + self.aggregation_level + "." + feature)

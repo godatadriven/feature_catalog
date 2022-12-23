@@ -12,3 +12,7 @@ class MissingColumnError(Exception):
 
 class UnsupportedAggregationLevel(Exception):
     pass
+
+
+class UnsupportedDependencies(Exception):
+    pass

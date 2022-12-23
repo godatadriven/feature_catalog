@@ -9,7 +9,10 @@ class ZoneLikelyhood(BaseFeatureGroup):
 
     supported_levels = {"avatarId", "guild"}
     available_features = {"darkshore_likelyhood"}
-    depends_on = Zone  # TODO
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._depends_on = [Zone(spark=self.spark, features_of_interest=[], aggregation_level=self.aggregation_level)]
 
     def _compute_feature_group(self, intermediate_features: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
         return intermediate_features.withColumn(
