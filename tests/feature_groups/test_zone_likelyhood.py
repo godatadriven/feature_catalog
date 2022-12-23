@@ -1,7 +1,6 @@
 import pytest
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
-from pyspark.sql import functions as sf
 from pyspark_test import assert_pyspark_df_equal
 
 from feature_logic.feature_groups.zone_likelyhood import ZoneLikelyhood
@@ -40,6 +39,10 @@ def test_compute_feature_group(
         zone_features = zone_features.withColumnRenamed("avatarId", "guild")
         expected_zone_likelyhood_features = expected_zone_likelyhood_features.withColumnRenamed("avatarId", "guild")
 
-    zone_likelyhood = ZoneLikelyhood(spark=spark, features_of_interest=ZoneLikelyhood.available_features, aggregation_level=aggregation_level)    
-    zone_likelyhood_features = zone_likelyhood._compute_feature_group(intermediate_features=zone_features, aggregation_level=aggregation_level)
+    zone_likelyhood = ZoneLikelyhood(
+        spark=spark, features_of_interest=ZoneLikelyhood.available_features, aggregation_level=aggregation_level
+    )
+    zone_likelyhood_features = zone_likelyhood._compute_feature_group(
+        intermediate_features=zone_features, aggregation_level=aggregation_level
+    )
     assert_pyspark_df_equal(zone_likelyhood_features, expected_zone_likelyhood_features)

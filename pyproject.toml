@@ -18,7 +18,7 @@ jupyterlab = "^3.4.8"
 pre-commit = "^2.20.0"
 black = "^22.10.0"
 pytest = "^7.2.0"
-flake8 = "^6.0.0"
+ruff = "^0.0.192"
 
 [build-system]
 requires = ["poetry-core"]
