@@ -29,6 +29,7 @@ The full architecture can be found in the docs folder, but here is the main over
 ![C4 context diagram](docs/images/structurizr-79513-FeatureCatalog-SystemContext.png)
 ![C4 context legend](docs/images/structurizr-79513-FeatureCatalog-SystemContext-key.png)
 
+### Including a Feature Store
 When including a Feature Store it could look somewhat like this:
 ![C4 context diagram](docs/images/structurizr-79513-FeaturePlatform-Container.png)
 
