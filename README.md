@@ -27,7 +27,7 @@ By increasing collaboration you will get the following benefits:
 
 The full architecture can be found in the docs folder, but here is already the overview of the system contect.
 ![C4 context diagram](docs/images/context.png)
-![C4 legend](docs/images/legend.png)
+![C4 context legend](docs/images/context-legend.png)
 
 ## How to use
 

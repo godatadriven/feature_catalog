@@ -5,12 +5,12 @@ We focus on the following three levels of the architecture: the Context, Contain
 
 # Context
 ![C4 context diagram](images/context.png)
+![C4 context legend](images/context-legend.png)
 
 # Container
 ![C4 container diagram](images/container.png)
+![C4 container legend](images/container-legend.png)
 
 # Component
 ![C4 component diagram](images/component.png)
-
-# Legend
-![C4 legend](images/legend.png)
+![C4 component legend](images/component-legend.png)

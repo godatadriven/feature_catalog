@@ -4,15 +4,15 @@ workspace {
         developer = person "Developer" "Maintainer of the Feature Catalog" "External"
         data_scientist = person "Data Scientist" "Developer of machine learning models" "External"
         
-        model_a = softwareSystem "An ML model in production." "External" {
+        model_a = softwareSystem "Model A" "An ML model in production." "External" {
             data_scientist -> this "Develops"
         }
 
-        model_b = softwareSystem "Another ML model in production." "External" {
+        model_b = softwareSystem "Model B" "Another ML model in production." "External" {
             data_scientist -> this "Develops"
         }
 
-        notebook = softwareSystem "A data exploration environement." "External,Notebook" {
+        notebook = softwareSystem "Notebook environment" "A data exploration environement." "External,Notebook" {
             data_scientist -> this "Experiments"
         }
 
