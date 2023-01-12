@@ -23,15 +23,20 @@ By increasing collaboration you will get the following benefits:
 - increase in speed of development (easy to re-use code)
 - increase in reliability / quality of code (more contributors)
 
+<img src="docs/images/feature_catalog.png" width="600"/>
+
 ## Architecture
 
 The full architecture can be found in the docs folder, but here is the main overview:
-![C4 context diagram](docs/images/structurizr-79513-MLplatform-Container.png)
-![C4 context legend](docs/images/structurizr-79513-MLplatform-Container-key.png)
+
+<img src="docs/images/structurizr-79513-MLplatform-Container.png" width="600"/>
+
+<img src="docs/images/structurizr-79513-MLplatform-Container-key.png" width="600"/>
 
 ### Including a Feature Store
 When including a Feature Store it could look somewhat like this:
-![C4 context diagram](docs/images/structurizr-79513-MLplatformFeatureStore-Container.png)
+
+<img src="docs/images/structurizr-79513-MLplatformFeatureStore-Container.png" width="600"/>
 
 ## How to use
 
