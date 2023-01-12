@@ -4,8 +4,8 @@ from pyspark.sql import SparkSession
 from pyspark.sql import functions as sf
 from pyspark_test import assert_pyspark_df_equal
 
-from feature_logic.base_feature_group import BaseFeatureGroup
-from feature_logic.utils import MissingColumnError, UnsupportedAggregationLevel
+from feature_catalog.base_feature_group import BaseFeatureGroup
+from feature_catalog.utils import MissingColumnError, UnsupportedAggregationLevel
 
 
 class GroupA(BaseFeatureGroup):

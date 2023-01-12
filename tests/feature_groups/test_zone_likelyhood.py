@@ -3,7 +3,7 @@ from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark_test import assert_pyspark_df_equal
 
-from feature_logic.feature_groups.zone_likelyhood import ZoneLikelyhood
+from feature_catalog.feature_groups.zone_likelyhood import ZoneLikelyhood
 
 
 @pytest.fixture

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "feature-logic"
+name = "feature-catalog"
 version = "0.1.0"
 description = "A package to define and access features with a simple API"
 authors = []

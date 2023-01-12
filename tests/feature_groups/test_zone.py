@@ -4,7 +4,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql import functions as sf
 from pyspark_test import assert_pyspark_df_equal
 
-from feature_logic.feature_groups.zone import Zone
+from feature_catalog.feature_groups.zone import Zone
 
 
 @pytest.fixture

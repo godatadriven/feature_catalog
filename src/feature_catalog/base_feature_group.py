@@ -5,7 +5,7 @@ from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as sf
 
-from feature_logic.utils import MissingColumnError, UnsupportedAggregationLevel, get_logger
+from feature_catalog.utils import MissingColumnError, UnsupportedAggregationLevel, get_logger
 
 LOGGER = get_logger()
 

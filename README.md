@@ -1,21 +1,33 @@
-# Feature Logic
+# Feature Catalog
 
-This is an example/template package to define and access features with a simple API.
-This repo can be used as template or inspiration to create your own feature logic package.
+This repo can be used as template or inspiration to create your own feature catalog.
+It contains some example code to define your features and expose them to users via a simple API.
 
-This package assumes that the size of your data justifies the use of Spark.
+Note: this example assumes that the size of your data justifies the use of Spark.
 
-## Why create a feature logic package?
+## What is a Feature Catalog?
 
-By creating a package containing your feature logic you:
+A Feature Catalog is a place where you define and document your features such that they can be created via an API.
 
-- define your features once
-- allow re-use of features across teams and projects
+Note that this not (yet) includes the storage of the features in a Feature Store. A Feature Catalog already gives you a lot of benefits without the complexity of a Feature Store or a full Feature Platform.
+
+## Why create a Feature Catalog?
+
+By creating a Feature Catalog you:
+
+- define your features once (single source of truth)
+- allow re-use of features across teams and projects (better collaboration)
 
 By increasing collaboration you will get the following benefits:
 
 - increase in speed of development (easy to re-use code)
 - increase in reliability / quality of code (more contributors)
+
+## Architecture
+
+The full architecture can be found in the docs folder, but here is already the overview of the system contect.
+![C4 context diagram](docs/images/context.png)
+![C4 legend](docs/images/legend.png)
 
 ## How to use
 

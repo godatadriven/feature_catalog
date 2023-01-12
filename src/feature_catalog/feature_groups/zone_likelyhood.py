@@ -1,8 +1,8 @@
 from pyspark.sql import DataFrame as SparkDataFrame
 from pyspark.sql import functions as sf
 
-from feature_logic.base_feature_group import BaseFeatureGroup
-from feature_logic.feature_groups.zone import Zone
+from feature_catalog.base_feature_group import BaseFeatureGroup
+from feature_catalog.feature_groups.zone import Zone
 
 
 class ZoneLikelyhood(BaseFeatureGroup):

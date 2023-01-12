@@ -1,5 +1,5 @@
-from feature_logic.main import extend_feature_groups, order_feature_groups
-from feature_logic.base_feature_group import BaseFeatureGroup
+from feature_catalog.main import extend_feature_groups, order_feature_groups
+from feature_catalog.base_feature_group import BaseFeatureGroup
 from pyspark.sql import DataFrame as SparkDataFrame
 
 

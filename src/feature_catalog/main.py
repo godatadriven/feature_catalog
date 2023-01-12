@@ -1,8 +1,8 @@
 from pyspark.sql import Column
 from pyspark.sql import DataFrame as SparkDataFrame
 
-from feature_logic.base_feature_group import BaseFeatureGroup
-from feature_logic.utils import UnsupportedDependencies
+from feature_catalog.base_feature_group import BaseFeatureGroup
+from feature_catalog.utils import UnsupportedDependencies
 
 
 def compute_features(scope: SparkDataFrame, feature_groups: list[BaseFeatureGroup]) -> SparkDataFrame:
