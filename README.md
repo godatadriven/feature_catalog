@@ -9,7 +9,7 @@ Note: this example assumes that the size of your data justifies the use of Spark
 
 A Feature Catalog is a place where you define and document your features such that they can be created via an API.
 
-Note that this not (yet) includes the storage of the features in a Feature Store. A Feature Catalog already gives you a lot of benefits without the complexity of a Feature Store or a full Feature Platform.
+Note that this not (yet) includes the storage of the features in a Feature Store. A Feature Catalog already gives you a lot of benefits without the complexity of a Feature Store or a full Feature Platform. Also see the Architecture section about this difference.
 
 ## Why create a Feature Catalog?
 
@@ -25,9 +25,12 @@ By increasing collaboration you will get the following benefits:
 
 ## Architecture
 
-The full architecture can be found in the docs folder, but here is already the overview of the system contect.
-![C4 context diagram](docs/images/context.png)
-![C4 context legend](docs/images/context-legend.png)
+The full architecture can be found in the docs folder, but here is the main overview:
+![C4 context diagram](docs/images/structurizr-79513-FeatureCatalog-SystemContext.png)
+![C4 context legend](docs/images/structurizr-79513-FeatureCatalog-SystemContext-key.png)
+
+When including a Feature Store it could look somewhat like this:
+![C4 context diagram](docs/images/structurizr-79513-FeaturePlatform-Container.png)
 
 ## How to use
 

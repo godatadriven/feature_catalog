@@ -1,16 +1,25 @@
+# Architecture overview
+
 This folder contains the code to visualize the architecture using the [C4 model](https://c4model.com/).
 It makes use of the [Structurizr DSL](https://structurizr.com/).
 
-We focus on the following three levels of the architecture: the Context, Container and Component level.  
+We compare the design of using only a Feature Catalog with another design where you also use a Feature Store.
 
-# Context
-![C4 context diagram](images/context.png)
-![C4 context legend](images/context-legend.png)
+## Only Feature Catalog
 
-# Container
-![C4 container diagram](images/container.png)
-![C4 container legend](images/container-legend.png)
+### Context
+![C4 context diagram](images/structurizr-79513-FeatureCatalog-SystemContext.png)
+![C4 context legend](images/structurizr-79513-FeatureCatalog-SystemContext-key.png)
 
-# Component
-![C4 component diagram](images/component.png)
-![C4 component legend](images/component-legend.png)
+### Container
+![C4 container diagram](images/structurizr-79513-FeatureCatalog-Container.png)
+![C4 container legend](images/structurizr-79513-FeatureCatalog-Container-key.png)
+
+### Component
+![C4 component diagram](images/structurizr-79513-FeatureCatalog-FeatureGroups-Component.png)
+![C4 component legend](images/structurizr-79513-FeatureCatalog-FeatureGroups-Component-key.png)
+
+
+## Including Feature Store
+
+![C4 context diagram](images/structurizr-79513-FeaturePlatform-Container.png)

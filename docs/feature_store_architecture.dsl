@@ -16,39 +16,34 @@ workspace {
             data_scientist -> this "Experiments"
         }
 
-        feature_catalog = softwareSystem "Feature Catalog" "Definition and documentation and API to create features." {
-            feature_groups = container "Feature Groups" "Definition and documentation of all features." "Python" {
-                data_scientist -> this "Defines/develops features"
-                zone = component "Zone Feature Group" "A group of related 'zone'." "Python"
-                zone_likelyhood = component "Zone Likelyhood Feature Group" "A group of related 'zone likelyhood' features." "Python"
-                zone_likelyhood -> zone "Depends on"
-            }
-            
-            api = container "Feature Catalog API" "API used to create features." "Python" {                
+        feature_platform = softwareSystem "Feature Platform" "A platform to define, document, store and serve features." "External" {
+            developer -> this "Maintains"            
+            feature_store = container "Feature Store" "Physical storage of feature data." "Database" "External" {                
+                model_a -> this "Reads from"
+                model_b -> this "Reads from"
+                notebook -> this "Reads from"
                 developer -> this "Maintains"
-                model_a -> this "Calls API"
-                model_b -> this "Calls API"
+            }
+            feature_catalog = container "Feature Catalog" "Definition, documentation and API to create features." {
+                feature_store -> this "Periodically calls API"
+                data_scientist -> this "Defines/develops features"
+                developer -> this "Maintains"
                 notebook -> this "Calls API"
             }
-        }        
+        }   
     }
 
     views {
-        systemContext feature_catalog {
+        systemContext feature_platform {
             include *
             autolayout lr
         }
 
-        container feature_catalog {
+        container feature_platform {
             include *
             autolayout lr
         }
 
-        component feature_groups {
-            include *
-            autolayout lr
-        }
-        
         theme default
         
         styles {
