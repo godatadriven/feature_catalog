@@ -13,19 +13,20 @@ We compare the design of using only a Feature Catalog with another design where 
 
 ## Only Feature Catalog
 
-### Context
-![C4 context diagram](images/structurizr-79513-FeatureCatalog-SystemContext.png)
-![C4 context legend](images/structurizr-79513-FeatureCatalog-SystemContext-key.png)
+### Context overview
+![C4 context diagram](images/structurizr-79513-MLplatform-SystemContext.png)
+![C4 context legend](images/structurizr-79513-MLplatform-SystemContext-key.png)
 
-### Container
-![C4 container diagram](images/structurizr-79513-FeatureCatalog-Container.png)
-![C4 container legend](images/structurizr-79513-FeatureCatalog-Container-key.png)
+### Container overview
+![C4 container diagram](images/structurizr-79513-MLplatform-Container.png)
+![C4 container legend](images/structurizr-79513-MLplatform-Container-key.png)
 
-### Component
-![C4 component diagram](images/structurizr-79513-FeatureCatalog-FeatureGroups-Component.png)
-![C4 component legend](images/structurizr-79513-FeatureCatalog-FeatureGroups-Component-key.png)
+### Component overview
+![C4 component diagram](images/structurizr-79513-MLplatform-FeatureCatalog-Component.png)
+![C4 component legend](images/structurizr-79513-MLplatform-FeatureCatalog-Component-key.png)
 
 
 ## Including Feature Store
+### Container overview
 
-![C4 context diagram](images/structurizr-79513-FeaturePlatform-Container.png)
+![C4 context diagram](images/structurizr-79513-MLplatformFeatureStore-Container.png)

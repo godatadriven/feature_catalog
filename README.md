@@ -26,12 +26,12 @@ By increasing collaboration you will get the following benefits:
 ## Architecture
 
 The full architecture can be found in the docs folder, but here is the main overview:
-![C4 context diagram](docs/images/structurizr-79513-FeatureCatalog-SystemContext.png)
-![C4 context legend](docs/images/structurizr-79513-FeatureCatalog-SystemContext-key.png)
+![C4 context diagram](docs/images/structurizr-79513-MLplatform-Container.png)
+![C4 context legend](docs/images/structurizr-79513-MLplatform-Container-key.png)
 
 ### Including a Feature Store
 When including a Feature Store it could look somewhat like this:
-![C4 context diagram](docs/images/structurizr-79513-FeaturePlatform-Container.png)
+![C4 context diagram](docs/images/structurizr-79513-MLplatformFeatureStore-Container.png)
 
 ## How to use
 
