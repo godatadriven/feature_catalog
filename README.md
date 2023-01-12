@@ -1,9 +1,10 @@
 # Feature Catalog
 
-This repo can be used as template or inspiration to create your own feature catalog.
-It contains some example code to define your features and expose them to users via a simple API.
+<img src="docs/images/complex_pipelines.jpg" width="100" style="float:left; margin-right:20px;" />
 
-Note: this example assumes that the size of your data justifies the use of Spark.
+This example code base can be used as template or inspiration to create your own Feature Catalog. It contains some example code to define your features and expose them to users via a simple API. We assume that the size of your data justifies the use of Spark.
+
+Below you find more information about what a Feature Catalog is, why to create it and what the difference is with a Feature Store.
 
 ## What is a Feature Catalog?
 
