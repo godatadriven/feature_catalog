@@ -35,6 +35,7 @@ The full architecture can be found in the docs folder, but here is the main over
 <img src="docs/images/structurizr-79513-MLplatform-Container-key.png" width="600"/>
 
 ### Including a Feature Store
+
 When including a Feature Store it could look somewhat like this:
 
 <img src="docs/images/structurizr-79513-MLplatformFeatureStore-Container.png" width="600"/>

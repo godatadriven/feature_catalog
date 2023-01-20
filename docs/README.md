@@ -4,9 +4,11 @@ This folder contains the code to visualize the architecture using the [C4 model]
 It makes use of the [Structurizr DSL](https://structurizr.com/).
 
 To create the diagrams you must have a structurizr account and then run
+
 ```
 structurizr-cli push -w docs/feature_catalog_architecture.dsl -id <ID> -key <KEY> -secret <SECRET>
 ```
+
 where you fill in the ID, KEY and SECRET from your account.
 
 We compare the design of using only a Feature Catalog with another design where you also use a Feature Store.
@@ -31,8 +33,8 @@ We compare the design of using only a Feature Catalog with another design where 
 
 <img src="images/structurizr-79513-MLplatform-FeatureCatalog-Component-key.png" width="600"/>
 
-
 ## Including Feature Store
+
 ### Container overview
 
 <img src="images/structurizr-79513-MLplatformFeatureStore-Container.png" width="600"/>

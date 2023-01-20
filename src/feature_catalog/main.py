@@ -18,7 +18,6 @@ def compute_features(scope: SparkDataFrame, feature_groups: list[BaseFeatureGrou
 
     assert len(scope.columns) == 1, "Error: scope must be a single column dataframe"
 
-    # TODO: when adding depends_on functionality, make sure to order feature groups based on their dependencies
     features = scope
     columns_of_interest: list[Column] = []
     groups_to_compute_in_order = order_feature_groups(extend_feature_groups(feature_groups))

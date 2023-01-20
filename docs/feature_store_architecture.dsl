@@ -17,9 +17,9 @@ workspace {
 
             model_pipeline_b = container "Model Pipeline B" "Another ML model in production." "Python" "External" {
                 data_scientist -> this "Develops model"
-            }            
+            }
 
-            feature_store = container "Feature Store" "Physical storage of feature data." "Data store" "External" {                
+            feature_store = container "Feature Store" "Physical storage of feature data." "Data store" "External" {
                 model_pipeline_a -> this "Reads from"
                 model_pipeline_b -> this "Reads from"
                 notebook -> this "Reads from"
@@ -32,7 +32,7 @@ workspace {
                 developer -> this "Maintains"
                 notebook -> this "Calls Feature Catalog API"
             }
-        }   
+        }
     }
 
     views {
@@ -47,7 +47,7 @@ workspace {
         }
 
         theme default
-        
+
         styles {
             element "External" {
                 background #cccccc

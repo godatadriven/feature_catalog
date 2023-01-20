@@ -20,7 +20,7 @@ workspace {
             }
 
             feature_catalog = container "Feature Catalog" "Definition, documentation and API to create features." "Git repo" {
-                api = component "Feature Catalog API" "API used to create features." "Python" {                
+                api = component "Feature Catalog API" "API used to create features." "Python" {
                     developer -> this "Maintains"
                     model_pipeline_a -> this "Calls API"
                     model_pipeline_b -> this "Calls API"
@@ -30,9 +30,9 @@ workspace {
                     data_scientist -> this "Defines/develops features"
                     api -> this "Exposes"
                 }
-                
-                
-            }        
+
+
+            }
         }
     }
 
@@ -51,9 +51,9 @@ workspace {
             include *
             autolayout lr
         }
-        
+
         theme default
-        
+
         styles {
             element "External" {
                 background #cccccc

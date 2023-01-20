@@ -1,6 +1,7 @@
-from feature_catalog.main import extend_feature_groups, order_feature_groups
-from feature_catalog.base_feature_group import BaseFeatureGroup
 from pyspark.sql import DataFrame as SparkDataFrame
+
+from feature_catalog.base_feature_group import BaseFeatureGroup
+from feature_catalog.main import extend_feature_groups, order_feature_groups
 
 
 class A(BaseFeatureGroup):
@@ -19,12 +20,8 @@ class B(BaseFeatureGroup):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._depends_on = [A(
-            spark=self.spark,
-            features_of_interest=[],
-            aggregation_level=self.aggregation_level
-        )]
-        
+        self._depends_on = [A(spark=self.spark, features_of_interest=[], aggregation_level=self.aggregation_level)]
+
     def _compute_feature_group(self, intermediate_features: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
         return intermediate_features
 
@@ -36,19 +33,15 @@ class C(BaseFeatureGroup):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._depends_on = [A(
-            spark=self.spark,
-            features_of_interest=[],
-            aggregation_level=self.aggregation_level
-        )]
-        
+        self._depends_on = [A(spark=self.spark, features_of_interest=[], aggregation_level=self.aggregation_level)]
+
     def _compute_feature_group(self, intermediate_features: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
         return intermediate_features
 
 
 def test_extend_feature_groups__adding_A(spark):
     b = B(spark, features_of_interest=[], aggregation_level="id")
-    
+
     extended_feature_groups = extend_feature_groups([b])
     assert len(extended_feature_groups) == 2
     assert {fg.__class__.__name__ for fg in extended_feature_groups} == {A.__name__, b.__class__.__name__}

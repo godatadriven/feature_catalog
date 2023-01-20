@@ -16,3 +16,7 @@ class UnsupportedAggregationLevel(Exception):
 
 class UnsupportedDependencies(Exception):
     pass
+
+
+class UnsupportedFeatureName(Exception):
+    pass
