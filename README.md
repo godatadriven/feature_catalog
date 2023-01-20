@@ -62,9 +62,9 @@ When including a Feature Store it could look somewhat like this:
 
 Install using `poetry install`.
 
-### Create diagram
+### Create feature group dependency graph
 
-To create a diagram of the dependencies between all feature groups you also need to install graphviz: https://graphviz.org/download/
+To create a graph of the dependencies between all feature groups you also need to install graphviz: https://graphviz.org/download/
 
 <img src="docs/images/feature_group_dependencies.gv.png" width="200"/>
 
