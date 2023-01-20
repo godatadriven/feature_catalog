@@ -1,11 +1,14 @@
 from pyspark.sql import Column
 from pyspark.sql import DataFrame as SparkDataFrame
+from pyspark.sql import SparkSession
 
 from feature_catalog.base_feature_group import BaseFeatureGroup
 from feature_catalog.utils import UnsupportedDependencies
 
 
-def compute_features(scope: SparkDataFrame, feature_groups: list[BaseFeatureGroup]) -> SparkDataFrame:
+def compute_features(
+    spark: SparkSession, scope: SparkDataFrame, feature_groups: list[BaseFeatureGroup]
+) -> SparkDataFrame:
     """Entrypoint to compute a feature dataframe.
 
     Args:
@@ -22,7 +25,7 @@ def compute_features(scope: SparkDataFrame, feature_groups: list[BaseFeatureGrou
     columns_of_interest: list[Column] = []
     groups_to_compute_in_order = order_feature_groups(extend_feature_groups(feature_groups))
     for feature_group in groups_to_compute_in_order:
-        features = feature_group.extend(features)
+        features = feature_group.extend(spark=spark, features=features)
         columns_of_interest += feature_group.columns_of_interest
 
     # NOTE: by selecting columns only at the end we allow the re-use of (intermediate) columns,

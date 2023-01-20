@@ -1,4 +1,5 @@
 from pyspark.sql import DataFrame as SparkDataFrame
+from pyspark.sql import SparkSession
 from pyspark.sql import functions as sf
 
 from feature_catalog.base_feature_group import BaseFeatureGroup
@@ -12,9 +13,11 @@ class ZoneLikelyhood(BaseFeatureGroup):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._depends_on = [Zone(spark=self.spark, features_of_interest=[], aggregation_level=self.aggregation_level)]
+        self._depends_on = [Zone(features_of_interest=[], aggregation_level=self.aggregation_level)]
 
-    def _compute_feature_group(self, intermediate_features: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
+    def _compute_feature_group(
+        self, spark: SparkSession, intermediate_features: SparkDataFrame, aggregation_level: str
+    ) -> SparkDataFrame:
         return intermediate_features.withColumn(
             "darkshore_likelyhood", sf.col("darkshore_count") / sf.col("total_count")
         )

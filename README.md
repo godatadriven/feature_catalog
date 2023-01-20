@@ -10,10 +10,10 @@ Below a simple example (see also `example_usage.ipynb`).
 all_avatars = spark.read.parquet("data/wow.parquet").select(“avatarId”).distinct()
 
 features = compute_features(
+        spark=spark,
         scope=all_avatars,
         feature_groups=[
             Zone(
-                spark=spark,
                 features_of_interest=["darkshore_count", "total_count"],
                 aggregation_level=“avatarId”
             ),

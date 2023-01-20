@@ -13,9 +13,11 @@ class GroupA(BaseFeatureGroup):
     supported_levels = {"id"}
     available_features = {"feature_3", "feature_4"}
 
-    def _compute_feature_group(self, intermediate_features: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
+    def _compute_feature_group(
+        self, spark: SparkSession, intermediate_features: SparkDataFrame, aggregation_level: str
+    ) -> SparkDataFrame:
         return (
-            self.spark.createDataFrame([(1,), (2,), (3,), (4,)], schema="id integer")
+            spark.createDataFrame([(1,), (2,), (3,), (4,)], schema="id integer")
             .withColumn("feature_3", sf.lit("f3"))
             .withColumn("feature_4", sf.lit("f4"))
         )
@@ -39,22 +41,22 @@ def features_extended_expected(features):
 
 
 def test_extend(spark: SparkSession, features: SparkDataFrame, features_extended_expected: SparkDataFrame):
-    features_extended = GroupA(
-        spark=spark, features_of_interest=GroupA.available_features, aggregation_level="id"
-    ).extend(features)
+    features_extended = GroupA(features_of_interest=GroupA.available_features, aggregation_level="id").extend(
+        spark=spark, features=features
+    )
     assert_pyspark_df_equal(features_extended, features_extended_expected)
 
 
 def test_extend__missing_column(spark: SparkSession):
-    group_a = GroupA(spark=spark, features_of_interest=GroupA.available_features, aggregation_level="id")
-    group_a.extend(spark.createDataFrame([], schema="id integer"))
+    group_a = GroupA(features_of_interest=GroupA.available_features, aggregation_level="id")
+    group_a.extend(spark=spark, features=spark.createDataFrame([], schema="id integer"))
 
     with pytest.raises(MissingColumnError):
-        group_a.extend(spark.createDataFrame([], schema="not_id integer"))
+        group_a.extend(spark=spark, features=spark.createDataFrame([], schema="not_id integer"))
 
 
-def test__init__(spark: SparkSession):
-    GroupA(spark=spark, features_of_interest=GroupA.available_features, aggregation_level="id")
+def test__init__():
+    GroupA(features_of_interest=GroupA.available_features, aggregation_level="id")
 
     with pytest.raises(UnsupportedAggregationLevel):
-        GroupA(spark=spark, features_of_interest=GroupA.available_features, aggregation_level="unsupported_level")
+        GroupA(features_of_interest=GroupA.available_features, aggregation_level="unsupported_level")

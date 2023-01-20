@@ -14,7 +14,6 @@ class BaseFeatureGroup(metaclass=ABCMeta):
     """Class to extend when creating a new feature group.
 
     Args:
-        spark: spark session
         features_of_interest: list of features to compute
         aggregation_level: column on which the aggregation is done for this feature group
     """
@@ -38,8 +37,7 @@ class BaseFeatureGroup(metaclass=ABCMeta):
         """
         return self._depends_on
 
-    def __init__(self, spark: SparkSession, features_of_interest: list[str], aggregation_level: str):
-        self.spark = spark
+    def __init__(self, features_of_interest: list[str], aggregation_level: str):
         self.features_of_interest = features_of_interest
         self.aggregation_level = aggregation_level
         self._depends_on: list["BaseFeatureGroup"] = []
@@ -56,10 +54,11 @@ class BaseFeatureGroup(metaclass=ABCMeta):
                 LOGGER.error(error_message)
                 raise UnsupportedFeatureName(error_message)
 
-    def extend(self, features: SparkDataFrame) -> SparkDataFrame:
+    def extend(self, spark: SparkSession, features: SparkDataFrame) -> SparkDataFrame:
         """Extend already computed features by adding features from this group
 
         Args:
+            spark: spark session
             features: already computed features
 
         Returns:
@@ -71,17 +70,20 @@ class BaseFeatureGroup(metaclass=ABCMeta):
             raise MissingColumnError(error_message)
 
         feature_group = self._compute_feature_group(
-            intermediate_features=features, aggregation_level=self.aggregation_level
+            spark=spark, intermediate_features=features, aggregation_level=self.aggregation_level
         )
         return features.join(
             feature_group.alias(self.alias + "-" + self.aggregation_level), on=self.aggregation_level, how="left"
         )
 
     @abstractmethod
-    def _compute_feature_group(self, intermediate_features: SparkDataFrame, aggregation_level: str) -> SparkDataFrame:
+    def _compute_feature_group(
+        self, spark: SparkSession, intermediate_features: SparkDataFrame, aggregation_level: str
+    ) -> SparkDataFrame:
         """Compute the features from this feature group
 
         Args:
+            spark: spark session
             intermediate_features: already computed features from which you can re-use columns
             aggregation_level: column on which the aggregation is done for this feature group
                 and also column on which the result is joined to the intermediate features

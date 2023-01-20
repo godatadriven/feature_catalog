@@ -42,9 +42,9 @@ def test_compute_feature_group(
         expected_zone_features = expected_zone_features.withColumnRenamed("avatarId", "guild")
 
     intermediate_features = zone_source_data.select(aggregation_level)
-    zone = Zone(spark=spark, features_of_interest=Zone.available_features, aggregation_level=aggregation_level)
-    zone._load_source_data = lambda: zone_source_data  # mock the source data
+    zone = Zone(features_of_interest=Zone.available_features, aggregation_level=aggregation_level)
+    zone._load_source_data = lambda _: zone_source_data  # mock the source data
     zone_features = zone._compute_feature_group(
-        intermediate_features=intermediate_features, aggregation_level=aggregation_level
+        spark=spark, intermediate_features=intermediate_features, aggregation_level=aggregation_level
     )
     assert_pyspark_df_equal(zone_features, expected_zone_features)

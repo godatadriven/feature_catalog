@@ -40,9 +40,9 @@ def test_compute_feature_group(
         expected_zone_likelyhood_features = expected_zone_likelyhood_features.withColumnRenamed("avatarId", "guild")
 
     zone_likelyhood = ZoneLikelyhood(
-        spark=spark, features_of_interest=ZoneLikelyhood.available_features, aggregation_level=aggregation_level
+        features_of_interest=ZoneLikelyhood.available_features, aggregation_level=aggregation_level
     )
     zone_likelyhood_features = zone_likelyhood._compute_feature_group(
-        intermediate_features=zone_features, aggregation_level=aggregation_level
+        spark=spark, intermediate_features=zone_features, aggregation_level=aggregation_level
     )
     assert_pyspark_df_equal(zone_likelyhood_features, expected_zone_likelyhood_features)
