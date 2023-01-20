@@ -4,11 +4,27 @@
 
 This example code base can be used as template or inspiration to create your own Feature Catalog. It contains some example code to define your features and expose them to users via a simple API. We assume that the size of your data justifies the use of Spark.
 
+Below a simple example (see also `example_usage.ipynb`).
+
+```
+all_avatars = spark.read.parquet("data/wow.parquet").select(“avatarId”).distinct()
+
+features = compute_features(
+        scope=all_avatars,
+        feature_groups=[
+            Zone(
+                spark=spark,
+                features_of_interest=["darkshore_count", "total_count"],
+                aggregation_level=“avatarId”
+            ),
+        ])
+```
+
 Below you find more information about what a Feature Catalog is, why to create it and what the difference is with a Feature Store.
 
 ## What is a Feature Catalog?
 
-A Feature Catalog is a place where you define and document your features such that they can be created via an API.
+A Feature Catalog is a place where you define and document your features such that they can be easily created via a simple API.
 
 Note that this not (yet) includes the storage of the features in a Feature Store. A Feature Catalog already gives you a lot of benefits without the complexity of a Feature Store or a full Feature Platform. Also see the Architecture section about this difference.
 
